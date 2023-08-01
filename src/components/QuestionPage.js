@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { formatQuestion } from '../utils/helpers';
 import { handleSetQuestionAnswer } from '../actions/questions';
+import NotFoundPage from './NotFoundPage';
 
 const withRouter = (Component) => {
   const ComponentWithRouterProp = (props) => {
@@ -16,6 +17,10 @@ const withRouter = (Component) => {
 };
 
 const QuestionPage = ({ question, dispatch }) => {
+  const [option, setOption] = useState(question?.hasAnsweredOption);
+  if (question === null) {
+    return <NotFoundPage />;
+  }
   const {
     authorName,
     authorAvatarURL,
@@ -24,7 +29,6 @@ const QuestionPage = ({ question, dispatch }) => {
     hasAnsweredOption,
     noOfResponses,
   } = question;
-  const [option, setOption] = useState(hasAnsweredOption);
 
   const handleOptionChange = (e) => {
     setOption(e.target.value);
@@ -52,8 +56,10 @@ const QuestionPage = ({ question, dispatch }) => {
       >
         <div className="form-control">
           {hasAnsweredOption && (
-            <div className="prose mb-0">
-              <p>{noOfResponses.optionOne}%</p>
+            <div className="prose prose-sm mb-0">
+              <p>
+                Count:{noOfResponses.optionOne}, {noOfResponses.optionOnePC}%
+              </p>
             </div>
           )}
           <label
@@ -85,8 +91,10 @@ const QuestionPage = ({ question, dispatch }) => {
         </div>
         <div className="form-control">
           {hasAnsweredOption && (
-            <div className="prose mb-0">
-              <p>{noOfResponses.optionTwo}%</p>
+            <div className="prose prose-sm mb-0">
+              <p>
+                Count:{noOfResponses.optionTwo}, {noOfResponses.optionTwoPC}%
+              </p>
             </div>
           )}
           <label
@@ -136,13 +144,11 @@ const QuestionPage = ({ question, dispatch }) => {
 
 const mapStateToProps = ({ questions, users, authedUser }, props) => {
   const { id } = props.router.params;
-  const question = questions[id];
+  const question = questions[id] || null;
   return {
-    question: formatQuestion(
-      question,
-      users[question.author],
-      users[authedUser]
-    ),
+    question: question
+      ? formatQuestion(question, users[question.author], users[authedUser])
+      : null,
   };
 };
 

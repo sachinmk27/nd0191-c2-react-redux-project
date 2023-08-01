@@ -9,8 +9,10 @@ export function formatQuestion(question, author, authedUser) {
     hasAnsweredOption: authedUser.answers[question.id],
     noOfResponses: {
       total,
-      optionOne: Math.round((question.optionOne.votes.length * 100) / total),
-      optionTwo: Math.round((question.optionTwo.votes.length * 100) / total),
+      optionOne: question.optionOne.votes.length,
+      optionTwo: question.optionTwo.votes.length,
+      optionOnePC: Math.round((question.optionOne.votes.length * 100) / total),
+      optionTwoPC: Math.round((question.optionTwo.votes.length * 100) / total),
     },
   };
 }
