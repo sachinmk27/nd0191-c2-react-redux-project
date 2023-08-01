@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { handleInitialData } from './actions/shared';
+import LoadingBar from 'react-redux-loading-bar';
+import LoginPage from './components/LoginPage';
+import Nav from './components/Nav';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import QuestionPage from './components/QuestionPage';
 
-function App() {
+const App = ({ dispatch, loading }) => {
+  useEffect(() => {
+    dispatch(handleInitialData());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <LoadingBar />
+      {loading === true ? (
+        <LoginPage />
+      ) : (
+        <>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/questions/:id" element={<QuestionPage />} />
+          </Routes>
+        </>
+      )}
+    </Fragment>
   );
-}
+};
 
-export default App;
+const mapStateToProps = ({ authedUser }) => {
+  return {
+    loading: authedUser === null,
+  };
+};
+export default connect(mapStateToProps)(App);
