@@ -34,6 +34,7 @@ const AddQuestion = ({ dispatch }) => {
             name="optionOne"
             id="optionOne"
             value={optionOne}
+            data-testid="optionOne"
             onChange={(e) => setOptionOne(e.target.value)}
             placeholder="Option one"
             className="input input-bordered w-full max-w-xs"
@@ -48,6 +49,7 @@ const AddQuestion = ({ dispatch }) => {
             name="optionTwo"
             id="optionTwo"
             value={optionTwo}
+            data-testid="optionTwo"
             onChange={(e) => setOptionTwo(e.target.value)}
             placeholder="Option two"
             className="input input-bordered w-full max-w-xs"

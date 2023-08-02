@@ -23,7 +23,11 @@ const LoginPage = ({ authedUser, users, dispatch }) => {
         <label className="label">
           <span className="label-text text-neutral">Change user account</span>
         </label>
-        <select className="select select-bordered" ref={ref}>
+        <select
+          data-testid="user-select"
+          className="select select-bordered"
+          ref={ref}
+        >
           {users.map(({ id, name }) => (
             <option key={id} value={id}>
               {name}

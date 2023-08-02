@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const LeaderBoardPage = ({ users, createdBy }) => {
+const LeaderBoardPage = ({ users }) => {
   return (
     <div className="overflow-y-auto w-full max-w-screen-lg mx-auto px-4">
       <table className="table mt-8 table-zebra">
@@ -15,7 +15,7 @@ const LeaderBoardPage = ({ users, createdBy }) => {
         <tbody>
           {users.map((user) => {
             return (
-              <tr key={user.id}>
+              <tr key={user.id} data-testid="leaderboard-row">
                 <td>
                   <div className="flex items-center space-x-3">
                     <div className="avatar">
@@ -29,8 +29,12 @@ const LeaderBoardPage = ({ users, createdBy }) => {
                     </div>
                   </div>
                 </td>
-                <td>{Object.keys(user.answers).length}</td>
-                <td>{user.questions.length}</td>
+                <td data-testid="leaderboard-answers">
+                  {Object.keys(user.answers).length}
+                </td>
+                <td data-testid="leaderboard-questions">
+                  {user.questions.length}
+                </td>
               </tr>
             );
           })}
@@ -39,7 +43,7 @@ const LeaderBoardPage = ({ users, createdBy }) => {
     </div>
   );
 };
-const mapStateToProps = ({ users, questions }) => {
+const mapStateToProps = ({ users }) => {
   return {
     users: Object.values(users).sort((a, b) => {
       const totalA = Object.keys(a.answers).length + a.questions.length;
