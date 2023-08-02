@@ -26,7 +26,6 @@ describe('LeaderBoardPage', () => {
     const answers = screen.queryAllByTestId('leaderboard-answers');
     const questions = screen.queryAllByTestId('leaderboard-questions');
     rows.forEach((row, index) => {
-      console.log(usersInfo[index]);
       const actualAnswer = +answers[index].textContent;
       const expectedAnswer = Object.keys(usersInfo[index].answers).length;
       expect(actualAnswer).toBe(expectedAnswer);
