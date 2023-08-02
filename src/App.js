@@ -9,6 +9,7 @@ import HomePage from './components/HomePage';
 import QuestionPage from './components/QuestionPage';
 import LeaderBoardPage from './components/LeaderBoardPage';
 import AddQuestion from './components/AddQuestion';
+import NotFoundPage from './components/NotFoundPage';
 
 const App = ({ dispatch, loading }) => {
   useEffect(() => {
@@ -28,6 +29,7 @@ const App = ({ dispatch, loading }) => {
             <Route path="/questions/:id" element={<QuestionPage />} />
             <Route path="/leaderboard" element={<LeaderBoardPage />} />
             <Route path="/add" element={<AddQuestion />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </>
       )}
