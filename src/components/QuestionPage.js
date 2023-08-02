@@ -131,7 +131,7 @@ const QuestionPage = ({ question, dispatch }) => {
           </div>
         )}
         <button
-          disabled={option === '' || hasAnsweredOption}
+          disabled={!option || hasAnsweredOption}
           type="submit"
           className="btn btn-primary"
         >
