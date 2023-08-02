@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import QuestionList from './QuestionList';
+import classNames from 'classnames';
 
 const HomePage = ({ newQuestionIds, answeredQuestionIds }) => {
+  const [showNewPolls, setShowNewPolls] = useState(true);
   return (
     <div className="w-full max-w-screen-lg mx-auto px-4">
-      <div className="prose mt-8 mb-4">
-        <h2>New Questions</h2>
+      <div className="tabs tabs-boxed my-4">
+        <button
+          onClick={() => setShowNewPolls(true)}
+          href="#"
+          className={classNames('tab', {
+            'tab-active': showNewPolls,
+          })}
+        >
+          New polls
+        </button>
+        <button
+          onClick={() => setShowNewPolls(false)}
+          href="#"
+          className={classNames('tab', {
+            'tab-active': !showNewPolls,
+          })}
+        >
+          Answered
+        </button>
       </div>
-      <div className="flex flex-wrap gap-8">
-        <QuestionList questionIds={newQuestionIds} />
-      </div>
-      <div className="flex flex-col w-full">
-        <div className="divider"></div>
-      </div>
-      <div className="prose mt-8 mb-4">
-        <h2>Done</h2>
-      </div>
-      <div className="flex flex-wrap gap-8">
-        <QuestionList questionIds={answeredQuestionIds} />
+      <div className="flex flex-wrap gap-8 my-4">
+        <QuestionList
+          questionIds={showNewPolls ? newQuestionIds : answeredQuestionIds}
+        />
       </div>
     </div>
   );
