@@ -10,8 +10,9 @@ import QuestionPage from './components/QuestionPage';
 import LeaderBoardPage from './components/LeaderBoardPage';
 import AddQuestion from './components/AddQuestion';
 import NotFoundPage from './components/NotFoundPage';
+import RequireAuth from './components/RequireAuth';
 
-const App = ({ dispatch, loading }) => {
+const App = ({ dispatch }) => {
   useEffect(() => {
     dispatch(handleInitialData());
   }, []);
@@ -19,27 +20,56 @@ const App = ({ dispatch, loading }) => {
   return (
     <Fragment>
       <LoadingBar />
-      {loading === true ? (
-        <LoginPage />
-      ) : (
-        <>
-          <Nav />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/questions/:id" element={<QuestionPage />} />
-            <Route path="/leaderboard" element={<LeaderBoardPage />} />
-            <Route path="/add" element={<AddQuestion />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </>
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Nav />
+              <HomePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/questions/:id"
+          element={
+            <RequireAuth>
+              <Nav />
+              <QuestionPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/leaderboard"
+          element={
+            <RequireAuth>
+              <Nav />
+              <LeaderBoardPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/add"
+          element={
+            <RequireAuth>
+              <Nav />
+              <AddQuestion />
+            </RequireAuth>
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="*"
+          element={
+            <RequireAuth>
+              <Nav />
+              <NotFoundPage />
+            </RequireAuth>
+          }
+        />
+      </Routes>
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ authedUser }) => {
-  return {
-    loading: authedUser === null,
-  };
-};
-export default connect(mapStateToProps)(App);
+export default connect()(App);

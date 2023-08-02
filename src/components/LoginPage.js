@@ -1,14 +1,18 @@
 import { useRef } from 'react';
 import { connect } from 'react-redux';
 import { setAuthedUser } from '../actions/authedUsers';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = ({ authedUser, users, dispatch }) => {
   const ref = useRef();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const selectedUserId = ref.current.value;
     dispatch(setAuthedUser(selectedUserId));
+    navigate(location.state?.path || '/');
   };
   return (
     <div className="container mx-auto px-4">
