@@ -7,6 +7,8 @@ import Nav from './components/Nav';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import QuestionPage from './components/QuestionPage';
+import LeaderBoardPage from './components/LeaderBoardPage';
+import AddQuestion from './components/AddQuestion';
 
 const App = ({ dispatch, loading }) => {
   useEffect(() => {
@@ -24,6 +26,8 @@ const App = ({ dispatch, loading }) => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/questions/:id" element={<QuestionPage />} />
+            <Route path="/leaderboard" element={<LeaderBoardPage />} />
+            <Route path="/add" element={<AddQuestion />} />
           </Routes>
         </>
       )}

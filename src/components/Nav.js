@@ -25,7 +25,7 @@ const Nav = ({ authedUser, dispatch }) => {
             </Link>
           </li>
           <li>
-            <Link className="btn btn-link text-base-100 no-underline" to="/new">
+            <Link className="btn btn-link text-base-100 no-underline" to="/add">
               New
             </Link>
           </li>
