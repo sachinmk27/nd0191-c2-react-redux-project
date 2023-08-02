@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import QuestionListItem from './QuestionListItem';
 import QuestionList from './QuestionList';
 
 const HomePage = ({ newQuestionIds, answeredQuestionIds }) => {

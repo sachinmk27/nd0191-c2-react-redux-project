@@ -3,9 +3,10 @@ import mtsamis from './mtsamis.jpg';
 import tylermcginnis from './tylermcginnis.jpg';
 import zoshikanlu from './zoshikanlu.jpg';
 
-export default {
+const images = {
   sarahedo,
   mtsamis,
   tylermcginnis,
   zoshikanlu,
 };
+export default images;
