@@ -30,7 +30,7 @@ const LeaderBoardPage = ({ users, createdBy }) => {
                   </div>
                 </td>
                 <td>{Object.keys(user.answers).length}</td>
-                <td>{createdBy[user.id] || 0}</td>
+                <td>{user.questions.length}</td>
               </tr>
             );
           })}
@@ -40,21 +40,12 @@ const LeaderBoardPage = ({ users, createdBy }) => {
   );
 };
 const mapStateToProps = ({ users, questions }) => {
-  const createdBy = Object.values(questions).reduce((acc, { author }) => {
-    if (acc[author]) {
-      acc[author] += 1;
-    } else {
-      acc[author] = 1;
-    }
-    return acc;
-  }, {});
   return {
     users: Object.values(users).sort((a, b) => {
-      const totalA = Object.keys(a.answers).length + createdBy[a.id];
-      const totalB = Object.keys(b.answers).length + createdBy[b.id];
+      const totalA = Object.keys(a.answers).length + a.questions.length;
+      const totalB = Object.keys(b.answers).length + b.questions.length;
       return totalB - totalA;
     }),
-    createdBy,
   };
 };
 export default connect(mapStateToProps)(LeaderBoardPage);
